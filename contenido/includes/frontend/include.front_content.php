@@ -46,6 +46,12 @@ if (!isset($contenido)) {
     }
 }
 
+// Initialize common variables
+$idcat = !isset($idcat) ? 0 : $idcat;
+$idart = !isset($idart) ? 0 : $idart;
+$idcatart = !isset($idcatart) ? 0 : $idcatart;
+$error = !isset($error) ? 0 : $error;
+
 cInclude('includes', 'functions.con.php');
 cInclude('includes', 'functions.con2.php');
 cInclude('includes', 'functions.api.php');
