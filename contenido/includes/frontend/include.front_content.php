@@ -626,7 +626,8 @@ if ($inUse == false && $allow == true && $view == 'edit' && ($perm->have_perm_ar
     // Check if an article is start article of the category
     $oCatLang = new cApiCategoryLanguage();
     $oCatLang->loadByCategoryIdAndLanguageId($idcat, $lang);
-    $isstart = ($oCatLang->get('idartlang') == $idartlang) ? 1 : 0;
+    $isstart = ($oCatLang->get('startidartlang') == $idartlang) ? 1 : 0;
+
 
     // Time management, redirect
     $oArtLang = new cApiArticleLanguage();
