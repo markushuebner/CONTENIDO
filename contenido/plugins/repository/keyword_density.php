@@ -315,7 +315,11 @@ function stripCount($singlewordcounter, $maxKeywords = 15) {
         $dist = array();
 
         foreach ($tmp as $key => $value) {
-            $dist[$value]++;
+            if (!isset($dist[$value])) {
+                $dist[$value] = 0;
+            } else {
+                $dist[$value]++;
+            }
         }
 
         uksort($dist, "__cmp");
