@@ -87,6 +87,16 @@ class SearchResultModule {
     protected $_page = 0;
 
     /**
+     * @var string
+     */
+    protected $_msgResult;
+
+    /**
+     * @var string
+     */
+    protected $_msgRange;
+
+    /**
      *
      * @param array $options
      */
@@ -109,6 +119,8 @@ class SearchResultModule {
         $this->_idart = cRegistry::getArticleId();
         $this->_sess = cRegistry::getSession();
         $this->_combine = '';
+        $this->_msgResult = '';
+        $this->_msgRange = '';
 
         // get global variables (the ugly way)
         global $sArtSpecs;
