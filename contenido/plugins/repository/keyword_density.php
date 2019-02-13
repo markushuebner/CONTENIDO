@@ -267,7 +267,6 @@ function calcDensity($singlewordcounter, $string, $quantifier = 1) {
         // hole word in upper cases ?
         (!ctype_upper($tmp[$i])) ? $tmp[$i] = cString::toLowerCase(addslashes($tmp[$i])) : $tmp[$i] = addslashes(preg_replace($patterns, $replaces, $tmp[$i]));
 
-        // using mb_strtolower because of umlauts
         if (!array_search($tmp[$i], $blacklist)) {
             // if hole string in upper cases add additional quantifier else
             // use only the string length
