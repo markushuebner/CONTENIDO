@@ -108,6 +108,7 @@ class SearchResultModule {
         $this->_idcat = cRegistry::getCategoryId();
         $this->_idart = cRegistry::getArticleId();
         $this->_sess = cRegistry::getSession();
+        $this->_combine = '';
 
         // get global variables (the ugly way)
         global $sArtSpecs;
