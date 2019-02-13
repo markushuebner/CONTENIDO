@@ -444,7 +444,7 @@ class cSearch extends cSearchBaseAbstract {
                                 $this->_searchResult[$artid]['search'][] = $searchword;
                                 $this->_searchResult[$artid]['occurence'][] = $string[1];
                                 $this->_searchResult[$artid]['debug_similarity'][] = $percent;
-                                if ($similarity > $this->_searchResult[$artid]['similarity']) {
+                                if (isset($this->_searchResult[$artid]['similarity']) && $similarity > $this->_searchResult[$artid]['similarity']) {
                                     $this->_searchResult[$artid]['similarity'] = $similarity;
                                 }
                             }
