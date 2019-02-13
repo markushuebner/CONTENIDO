@@ -617,12 +617,11 @@ class cSearch extends cSearchBaseAbstract {
 
         $aCatRange = array_unique($aCatRange);
         $sCatRange = implode("','", $aCatRange);
+        $sArtRange = '';
 
         if (array_key_exists('articles', $search_range) && is_array($search_range['articles'])) {
             if (count($search_range['articles']) > 0) {
                 $sArtRange = implode("','", $search_range['articles']);
-            } else {
-                $sArtRange = '';
             }
         }
 
