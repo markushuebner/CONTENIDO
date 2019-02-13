@@ -269,9 +269,19 @@ function calcDensity($singlewordcounter, $string, $quantifier = 1) {
 
         // using mb_strtolower because of umlauts
         if (!array_search($tmp[$i], $blacklist)) {
-            // if hole string in upper casses add additional quantifiert else
+            // if hole string in upper cases add additional quantifier else
             // use only the string length
-            (ctype_upper($tmp[$i])) ? $singlewordcounter[cString::toLowerCase($tmp[$i])] += cString::getStringLength($tmp[$i]) + 10000 : $singlewordcounter[$tmp[$i]] += cString::getStringLength($tmp[$i]);
+            if (ctype_upper($tmp[$i])) {
+                if (empty($singlewordcounter[cString::toLowerCase($tmp[$i])])) {
+                    $singlewordcounter[cString::toLowerCase($tmp[$i])] = 0;
+                }
+                $singlewordcounter[cString::toLowerCase($tmp[$i])] += cString::getStringLength($tmp[$i]) + 10000;
+            } else {
+                if (empty( $singlewordcounter[$tmp[$i]])) {
+                    $singlewordcounter[$tmp[$i]] = 0;
+                }
+                $singlewordcounter[$tmp[$i]] += cString::getStringLength($tmp[$i]);
+            }
         }
     }
 
