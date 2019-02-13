@@ -187,6 +187,7 @@ class SearchResultModule {
         $tpl->assign('prev', $this->_getPreviousLink());
         $tpl->assign('next', $this->_getNextLink());
         $tpl->assign('pages', $this->_getPageLinks());
+        $tpl->assign('method', 'post');
 
         // determine action & method for search form
         // depends upon if plugin mod_rewrite is enabled
