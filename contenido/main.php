@@ -169,10 +169,8 @@ $cfg['debug']['backend_exectime']['start'] = getmicrotime();
 
 // Include all required 'include' files. Can be an array of files, if more than
 // one file is required.
-if (is_array($backend->getFile('inc'))) {
-    foreach ($backend->getFile('inc') as $filename) {
-        include_once($backendPath . $filename);
-    }
+foreach ($backend->getFile('inc') as $filename) {
+    include_once($backendPath . $filename);
 }
 
 // If $action is set -> User klicked some button/link
@@ -198,7 +196,7 @@ if (isset($action)) {
 // Include the 'main' file for the selected area. Usually there is only one main
 // file
 $sFilename = "";
-if (is_array($backend->getFile('main'))) {
+if (count($backend->getFile('main')) > 0) {
     foreach ($backend->getFile('main') as $id => $filename) {
         $sFilename = $filename;
         include_once($backendPath . $filename);
