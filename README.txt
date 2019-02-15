@@ -1,4 +1,15 @@
-﻿CONTENIDO Version 4.10.0
+NOTE:
+This is not the official repository of the CONTENIDO CMS. I just keep the latest available version from the official repository here to be able to work on it and to provide an updated version of the CMS for the community.
+
+CONTENIDO links:
+- Website https://www.contenido.org
+- Forum https://forum.contenido.org
+- Bugtracker: https://issues.contenido.org
+- Documentation https://docs.contenido.org
+- Official repository https://git.contenido.org
+
+
+CONTENIDO Version 4.10.0
 Lizenz:        GNU General Public Licence (GPL)
 Copyright:     (c) 2003-2016, four for business AG
 
