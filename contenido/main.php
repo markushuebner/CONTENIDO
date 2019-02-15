@@ -62,7 +62,8 @@ if ($cfg['use_pseudocron'] == true) {
 // Remove all own marks, only for frame 1 and 4 if $_REQUEST['appendparameters']
 // == 'filebrowser'
 // filebrowser is used in tiny in this case also do not remove session marks
-if (($frame == 1 || $frame == 4) && $_REQUEST['appendparameters'] != 'filebrowser') {
+$appendparameters = !empty($_REQUEST['appendparameters']) ? $_REQUEST['appendparameters'] : '';
+if (($frame == 1 || $frame == 4) && $appendparameters != 'filebrowser') {
     $col = new cApiInUseCollection();
     $col->removeSessionMarks($sess->id);
     $col->removeOldMarks();
@@ -100,15 +101,15 @@ if (isset($changelang) && is_numeric($changelang)) {
     // redirect to MyCONTENIDO area
     if ($area == "con_editart" || $area == "con_meta" || $area == "con_tplcfg" || $area == "con_content_list") {
 
-    	$artLangColl = new cApiArticleLanguageCollection;
-    	$artLangColl->setWhere('idart', $idart);
-    	$artLangColl->setWhere('idlang', $lang);
-    	$artLangColl->query();
+        $artLangColl = new cApiArticleLanguageCollection;
+        $artLangColl->setWhere('idart', $idart);
+        $artLangColl->setWhere('idlang', $lang);
+        $artLangColl->query();
 
-		if ($artLangColl->count() == 0) {
-			$frame = $sess->url("index.php?area=mycontenido&frame=4");
-			echo "<script>parent.frames.top.location.href='" . $frame . "';</script>";
-		}
+        if ($artLangColl->count() == 0) {
+            $frame = $sess->url("index.php?area=mycontenido&frame=4");
+            echo "<script>parent.frames.top.location.href='" . $frame . "';</script>";
+        }
     }
 
 }
