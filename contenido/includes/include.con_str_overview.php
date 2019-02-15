@@ -95,9 +95,9 @@ function showTree($iIdcat, &$aWholelist) {
             if ($aValue["idlang"] == $lang) {
                 // Build cfgdata string
                 $cfgdata = $idcat . "-" . $idtpl . "-" . $aValue['online'] . "-" . $aValue['public'] . "-" .
-                        $changetemplate . "-" .
-                        $onoffline . "-" .
-                        $makepublic . "-" . $templateconfig;
+                    $changetemplate . "-" .
+                    $onoffline . "-" .
+                    $makepublic . "-" . $templateconfig;
             } else {
                 $cfgdata = "";
             }
@@ -145,7 +145,7 @@ function showTree($iIdcat, &$aWholelist) {
                 $aCssClasses[] = 'last';
             }
 
-            if ($aValue['collapsed'] == 1 && is_array($navigationTree[$idcat])) {
+            if ($aValue['collapsed'] == 1 && isset($navigationTree[$idcat]) && is_array($navigationTree[$idcat])) {
                 $aCssClasses[] = 'collapsed';
             }
 
@@ -181,14 +181,14 @@ function showTree($iIdcat, &$aWholelist) {
                     $cfgdata .= '-1';
                 } else {
                     $cfgdata = $idcat . "-" . $idtpl . "-" . $aValue['online'] . "-" . $aValue['public'] .
-                            "-0-0-0-0-1";
+                        "-0-0-0-0-1";
                 }
             } else {
                 if ($cfgdata != '') {
                     $cfgdata .= '-0';
                 } else {
                     $cfgdata = $idcat . "-" . $idtpl . "-" . $aValue['online'] . "-" . $aValue['public'] .
-                            "-0-0-0-0-0";
+                        "-0-0-0-0-0";
                 }
             }
 
@@ -197,7 +197,7 @@ function showTree($iIdcat, &$aWholelist) {
 
             // Build Tree
             $tpl->set('d', 'CFGDATA', $cfgdata);
-            if (is_array($navigationTree[$idcat])) {
+            if (isset($navigationTree[$idcat]) && is_array($navigationTree[$idcat])) {
                 $tpl->set('d', 'SUBCATS', showTree($idcat, $aWholelist));
                 $tpl->set('d', 'COLLAPSE', '<a href="#"> </a>');
                 $aWholelist[] = $idcat;
@@ -375,6 +375,7 @@ while ($db->nextRecord()) {
 }
 
 $arrArtCache = array();
+$aIsArticles = array();
 
 if (count($arrIn) > 0) {
     $sIn = implode(',', $arrIn);
@@ -560,24 +561,24 @@ if ($lang > $syncoptions) {
 
 $client = (int) $client;
 $sql = "SELECT DISTINCT " .
-        "a.idcat, " .
-        "a.parentid, " .
-        "a.preid, " .
-        "a.postid, " .
-        "a.parentid, " .
-        "b.name, " .
-        "b.idlang, " .
-        "b.visible, " .
-        "b.public, " .
-        "c.level, " .
-        "d.idtpl " .
-        "FROM {$cfg['tab']['cat']} AS a " .
-        "LEFT JOIN {$cfg['tab']['cat_lang']} AS b ON a.idcat = b.idcat " .
-        "LEFT JOIN {$cfg['tab']['cat_tree']} AS c ON (a.idcat = c.idcat AND b.idcat = c.idcat) " .
-        "LEFT JOIN {$cfg["tab"]["tpl_conf"]} AS d ON b.idtplcfg = d.idtplcfg " .
-        "WHERE " .
-        "   a.idclient = {$client} " .
-        "ORDER BY b.idlang {$sOrder}, c.idtree ASC ";
+    "a.idcat, " .
+    "a.parentid, " .
+    "a.preid, " .
+    "a.postid, " .
+    "a.parentid, " .
+    "b.name, " .
+    "b.idlang, " .
+    "b.visible, " .
+    "b.public, " .
+    "c.level, " .
+    "d.idtpl " .
+    "FROM {$cfg['tab']['cat']} AS a " .
+    "LEFT JOIN {$cfg['tab']['cat_lang']} AS b ON a.idcat = b.idcat " .
+    "LEFT JOIN {$cfg['tab']['cat_tree']} AS c ON (a.idcat = c.idcat AND b.idcat = c.idcat) " .
+    "LEFT JOIN {$cfg["tab"]["tpl_conf"]} AS d ON b.idtplcfg = d.idtplcfg " .
+    "WHERE " .
+    "   a.idclient = {$client} " .
+    "ORDER BY b.idlang {$sOrder}, c.idtree ASC ";
 $db->query($sql);
 if ($client == 0) {
     $client = '';
@@ -631,7 +632,7 @@ while ($db->nextRecord()) {
             'forcedisplay' => $forcedisplay,
             'active' => $active,
             'islast' => false,
-            'articles' => $aIsArticles[$db->f("idcat")],
+            'articles' => !empty($aIsArticles[$db->f("idcat")]) ? $aIsArticles[$db->f("idcat")] : false,
             'level' => $db->f('level')
         );
         if ($aStartOnlineArticles[$db->f('idcat')]['is_start']) {
