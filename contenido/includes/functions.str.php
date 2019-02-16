@@ -638,8 +638,6 @@ function strRenameCategoryAlias($idcat, $lang, $newcategoryalias) {
  * @throws cInvalidArgumentException
  */
 function strMakeVisible($idcat, $lang, $visible) {
-    global $cfg;
-
     $visible = (int) $visible;
     $lang = (int) $lang;
 
@@ -652,7 +650,7 @@ function strMakeVisible($idcat, $lang, $visible) {
         $oCatLang->store();
     }
 
-    if ($cfg['pathresolve_heapcache'] == true && $visible = 0) {
+    if (cRegistry::getConfigValue('pathresolve_heapcache') == true && $visible != 0) {
         $oPathresolveCacheColl = new cApiPathresolveCacheCollection();
         $oPathresolveCacheColl->deleteByCategoryAndLanguage($idcat, $lang);
     }
