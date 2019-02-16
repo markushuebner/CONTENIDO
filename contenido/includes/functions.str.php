@@ -420,7 +420,7 @@ function strBuildSqlValues($aCats, $sInsertQuery, &$aAllCats, $iLevel = 0) {
         $aCats = strSortPrePost($aCats);
         foreach ($aCats as $aCat) {
             $sInsertQuery .= '(' . (int) $aCat['idcat'] . ', ' . (int) $iLevel . '), ';
-            if (is_array($aAllCats[$aCat['idcat']])) {
+            if (isset($aAllCats[$aCat['idcat']]) && is_array($aAllCats[$aCat['idcat']])) {
                 $iSubLevel = $iLevel + 1;
                 $sInsertQuery = strBuildSqlValues($aAllCats[$aCat['idcat']], $sInsertQuery, $aAllCats, $iSubLevel);
             }
