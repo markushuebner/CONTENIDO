@@ -44,7 +44,7 @@ defined('CON_FRAMEWORK') || die('Illegal call: Missing framework initialization 
  * @return string
  *         The generated code or "0601" if neither article
  *         nor category configuration was found.
- * 
+ *
  * @throws cDbException
  * @throws cException
  * @throws cInvalidArgumentException
@@ -76,7 +76,7 @@ function conGenerateCode($idcat, $idart, $lang, $client, $layout = false, $save 
  *
  * @return mixed
  *         idartlang of the article or false if nothing was found
- * 
+ *
  * @throws cDbException
  */
 function getArtLang($idart, $idlang) {
@@ -90,7 +90,7 @@ function getArtLang($idart, $idlang) {
  *
  * @return array
  *         Assoziative meta tags list
- * 
+ *
  * @throws cDbException
  * @throws cException
  */
@@ -124,45 +124,37 @@ function conGetAvailableMetaTagTypes() {
  *         version number
  *
  * @return string
- * 
+ *
  * @throws cDbException
  * @throws cException
  */
-function conGetMetaValue($idartlang, $idmetatype, $version  = NULL) {
+function conGetMetaValue($idartlang, $idmetatype, $version = NULL) {
     static $oMetaTagColl = NULL;
     static $metaTagVersionColl = NULL;
+    $oMetaTag = NULL;
 
-    if ($version ==  NULL) {
+    if ((int) $idartlang <= 0) {
+        return '';
+    }
+
+    if ($version === NULL) {
         if (!isset($oMetaTagColl)) {
             $oMetaTagColl = new cApiMetaTagCollection();
         }
 
-        if ((int) $idartlang <= 0) {
-            return '';
-        }
-
         $oMetaTag = $oMetaTagColl->fetchByArtLangAndMetaType($idartlang, $idmetatype);
-        if (is_object($oMetaTag)) {
-            return stripslashes($oMetaTag->get('metavalue'));
-        } else {
-            return '';
-        }
-    } else if (is_numeric ($version)) {
+    } else if (is_numeric($version)) {
         if (!isset($metaTagVersionColl)) {
             $metaTagVersionColl = new cApiMetaTagVersionCollection();
         }
 
-        if ((int) $idartlang <= 0) {
-            return '';
-        }
+        $oMetaTag = $metaTagVersionColl->fetchByArtLangMetaTypeAndVersion($idartlang, $idmetatype, $version);
+    }
 
-        $metaTagVersion = $metaTagVersionColl->fetchByArtLangMetaTypeAndVersion($idartlang, $idmetatype, $version);
-        if (is_object($metaTagVersion)) {
-            return stripslashes($metaTagVersion->get('metavalue'));
-        } else {
-            return '';
-        }
-
+    if (is_object($oMetaTag)) {
+        return stripslashes($oMetaTag->get('metavalue'));
+    } else {
+        return '';
     }
 }
 
@@ -180,7 +172,7 @@ function conGetMetaValue($idartlang, $idmetatype, $version  = NULL) {
  *
  * @return bool
  *         whether the meta value has been saved successfully
- * 
+ *
  * @throws cDbException
  * @throws cException
  * @throws cInvalidArgumentException
@@ -244,7 +236,7 @@ function conSetMetaValue($idartlang, $idmetatype, $value, $version = NULL) {
             //         $version = $artLangVersion->getField('version');
             // }
             // echo "version1:";var_export($version);
-            
+
             // update article
             $artLang = new cApiArticleLanguage($idartlang);
             $artLang->set('lastmodified', date('Y-m-d H:i:s'));
@@ -325,7 +317,7 @@ function conSetMetaValue($idartlang, $idmetatype, $value, $version = NULL) {
  *
  * @throws cDbException
  * @throws cInvalidArgumentException
- * 
+ *
  * @deprecated [2014-07-24]
  *         Not used anymore
  */
@@ -368,7 +360,7 @@ function conGenerateKeywords($client, $lang) {
  * @return array
  *         Array with content of an article indexed by content-types as follows:
  *         - $arr[type][typeid] = value;
- * 
+ *
  * @throws cDbException
  */
 function conGetContentFromArticle($iIdArtLang) {
@@ -399,7 +391,7 @@ function conGetContentFromArticle($iIdArtLang) {
  *
  * @return array
  *         Assoziative array where the key is the number and value the module id
- * 
+ *
  * @throws cDbException
  * @throws cException
  */
@@ -424,7 +416,7 @@ function conGetUsedModules($idtpl) {
  * @return array
  *         Assoziative array where the key is the number
  *         and value the container configuration.
- * 
+ *
  * @throws cDbException
  * @throws cException
  */
@@ -440,7 +432,7 @@ function conGetContainerConfiguration($idtplcfg) {
  * @param int $idart
  *
  * @return int|NULL
- * 
+ *
  * @throws cDbException
  */
 function conGetCategoryArticleId($idcat, $idart) {
@@ -464,7 +456,7 @@ function conGetCategoryArticleId($idcat, $idart) {
  * @param int $client
  *
  * @return int|NULL
- * 
+ *
  * @throws cDbException
  */
 function conGetTemplateConfigurationIdForArticle($idart, $idcat, $lang, $client) {
@@ -487,7 +479,7 @@ function conGetTemplateConfigurationIdForArticle($idart, $idcat, $lang, $client)
  * @param int $client
  *
  * @return int|NULL
- * 
+ *
  * @throws cDbException
  */
 function conGetTemplateConfigurationIdForCategory($idcat, $lang, $client) {
