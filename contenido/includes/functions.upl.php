@@ -516,7 +516,7 @@ function uplRecursiveDBDirectoryList($directory, TreeItem $oRootItem, $level, $c
             $item[$dirname]->setCustom('lastitem', true);
 
             if ($item[$dirname]->getCustom('level') == $level) {
-                if (is_object($prevobj[$level])) {
+                if (isset($prevobj[$level]) && is_object($prevobj[$level])) {
                     $prevobj[$level]->setCustom('lastitem', false);
                 }
             }
