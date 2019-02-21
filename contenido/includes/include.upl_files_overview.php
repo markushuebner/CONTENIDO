@@ -142,14 +142,17 @@ if ($action === 'upl_modify_file' && !empty($file)) {
         $upload->store();
     }
 
+    $protected = !empty($_REQUEST['protected']) && $_REQUEST['protected'] === '1' ? '1' : '';
     $properties = new cApiPropertyCollection();
-    $properties->setValue('upload', $qpath . $file, 'file', 'protected', stripslashes($protected));
+    $properties->setValue('upload', $qpath . $file, 'file', 'protected', $protected);
 
-    $bTimeMng = (isset($_REQUEST['timemgmt']) && cString::getStringLength($_REQUEST['timemgmt']) > 1);
-    $properties->setValue('upload', $qpath . $file, 'file', 'timemgmt', ($bTimeMng) ? 1 : 0);
-    if ($bTimeMng) {
-        $properties->setValue('upload', $qpath . $file, 'file', 'datestart', cSecurity::escapeString($_REQUEST['datestart']));
-        $properties->setValue('upload', $qpath . $file, 'file', 'dateend', cSecurity::escapeString($_REQUEST['dateend']));
+    $timeMgmt = !empty($_REQUEST['timemgmt']) && $_REQUEST['timemgmt'] === '1' ? '1' : '';
+    $properties->setValue('upload', $qpath . $file, 'file', 'timemgmt', $timeMgmt);
+    if ($timeMgmt) {
+        $dateStart = !empty($_REQUEST['datestart']) ? cSecurity::escapeString($_REQUEST['datestart']) : '';
+        $dateEnd = !empty($_REQUEST['dateend']) ? cSecurity::escapeString($_REQUEST['dateend']) : '';
+        $properties->setValue('upload', $qpath . $file, 'file', 'datestart', $dateStart);
+        $properties->setValue('upload', $qpath . $file, 'file', 'dateend', $dateEnd);
     }
 
     $author = $auth->auth['uid'];
