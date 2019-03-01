@@ -2,7 +2,6 @@
  * CONTENIDO JavaScript system_log_sysvalues.js module
  *
  * @author     ???
- * @author     Murat Purc <murat@purc.de>
  * @copyright  four for business AG <www.4fb.de>
  * @license    http://www.contenido.org/license/LIZENZ.txt
  * @link       http://www.4fb.de
@@ -15,8 +14,8 @@
     /**
      * Class SystemLogSysValues
      * @param {Object} options - Options
-     * @param {jQuery} options.root - The root element jQuery object
-     * @param {String} options.fileIsTooLargeMsg - Message to display for too large files
+     * @param {jQuery} optiond.root - The root element jQuery object
+     * @param {String} optiond.fileIsTooLargeMsg - Message to display for too large files
      * @constructor
      */
     function SystemLogSysValues (options) {

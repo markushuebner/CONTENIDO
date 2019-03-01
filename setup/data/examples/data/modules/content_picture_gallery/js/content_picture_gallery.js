@@ -131,7 +131,9 @@
                 dialogClass = 'dialog-gallery invisible';
             }
 
-            var lb = $(".gallery .lightbox").html(left + right + '<img src="' + $(this).attr("href") + '" alt="" /><p>' + $(this).attr("rel") + colon + $(this).attr("title") + '</p>').dialog({
+            var lb = $(".gallery .lightbox")
+                .html(left + right + '<img src="' + $(this).attr("href") + '" alt="" /><p>' + $(this).attr("rel") + colon + $(this).attr("title") + '</p>')
+                .dialog({
                 modal: true,
                 width: "auto",
                 height: "auto",

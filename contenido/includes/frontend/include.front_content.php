@@ -47,10 +47,10 @@ if (!isset($contenido)) {
 }
 
 // Initialize common variables
-$idcat = !isset($idcat) ? 0 : $idcat;
-$idart = !isset($idart) ? 0 : $idart;
-$idcatart = !isset($idcatart) ? 0 : $idcatart;
-$error = !isset($error) ? 0 : $error;
+$idcat    = isset($idcat) ? $idcat : 0;
+$idart    = isset($idart) ? $idart : 0;
+$idcatart = isset($idcatart) ? $idcatart : 0;
+$error    = isset($error) ? $error : 0;
 
 cInclude('includes', 'functions.con.php');
 cInclude('includes', 'functions.con2.php');
