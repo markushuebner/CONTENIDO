@@ -139,7 +139,7 @@ function getArticlesFromCategory($idcat, array $excludedIdartlangs = array()) {
             art_lang.idartlang
         FROM
             `' . $cfg['tab']['art_lang'] . '` AS art_lang
-            , `' . $cfg['tab']['cat_art'] . '` AS ca
+            , `' . $cfg['tab']['cat_art'] . '` AS cat_art
         WHERE
             art_lang.idart = cat_art.idart
             AND art_lang.idlang = ' . cSecurity::toInteger($idlang) . '
